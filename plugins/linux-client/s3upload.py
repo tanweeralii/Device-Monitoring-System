@@ -9,5 +9,5 @@ while True:
                 f1.write(line)
     s3 = boto3.client('s3')
     host_name = psutil.users()[0].name
-    s3.upload_file('./.sdl_logs/logs.txt', 'django-access', host_name+'.txt')
+    s3.upload_file('./.sdl_logs/logs.txt', 'bucket-name', host_name+'.txt')
     time.sleep(60)

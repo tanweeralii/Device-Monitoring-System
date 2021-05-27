@@ -24,8 +24,8 @@ namespace WindowsSocketClient
                 x.RunAsPrompt();
 
                 x.SetServiceName("Asset Monitoring");
-                x.SetDisplayName("Asset Monitoring Navriti");
-                x.SetDescription("This is connecting this PC to Navriti");
+                x.SetDisplayName("Asset Monitoring");
+                x.SetDescription("This is connecting this PC to Server");
             });
 
             int exitCodeValue = (int)Convert.ChangeType(exitCode, exitCode.GetTypeCode());

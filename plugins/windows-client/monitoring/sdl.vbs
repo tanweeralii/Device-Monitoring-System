@@ -4,7 +4,7 @@ Set objShell=CreateObject("WScript.Shell")
 Set objFSO=CreateObject("Scripting.FileSystemObject")
 
 'enter the path for your PowerShell Script
- strPath="C:\Users\IT\Desktop\sdl\sdl_1.ps1"
+ strPath=""
 
 'verify file exists
  If objFSO.FileExists(strPath) Then

@@ -19,7 +19,7 @@ while($true) {
         $diskUsage = "$driveLetter $Used GB Out of $Total GB ($UsedPercent%)"
         $final = $final + $diskUsage + ","
     }
-    Invoke-WebRequest -Uri "https://asset.certiplate.com/postsystems/" -Method Post -UseBasicParsing -Body @{
+    Invoke-WebRequest -Uri "https://write-url-here/postsystems/" -Method Post -UseBasicParsing -Body @{
 		host_name = $env:computername
 		cpu_usage = "$cpuTime %"
 		disk_usage = $final

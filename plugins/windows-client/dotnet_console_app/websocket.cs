@@ -42,7 +42,7 @@ namespace WindowsSocketClient
             try
             {
                 webSocket = new ClientWebSocket();
-                await webSocket.ConnectAsync(new Uri("wss://asset.certiplate.com/systems/connect/DESKTOP-RD5H5MF/"), CancellationToken.None);
+                await webSocket.ConnectAsync(new Uri("wss://"), CancellationToken.None);
                 await Task.WhenAll(Receive(webSocket), Send(webSocket));
             }
             catch (Exception ex)
