@@ -1,0 +1,294 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Systems{% endblock %}
+{% load static %}
+{% block links %}
+  <!-- Custom styles for this template-->
+  <link href="/static/css/sb-admin.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<body id="page-top">
+
+  <nav class="header-link navbar navbar-expand navbar-dark bg-dark static-top">
+	  <a class="navbar-brand mr-1" href="{{ util.all.url }}/">Select Devices/</a><a class="navbar-brand mr-1" href="{{ util.all.url }}/{{ urll }}/">{{ topic }}/</a><a class="navbar-brand mr-1" href="#">Connected to {{ host_name }}/</a>
+          <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle fa-fw"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ util.all.url }}/logout/">Logout</a>
+				<a class="dropdown-item" type="button" id="get_remote">Get Remote ID</a>
+                        </div>
+                </li>
+        </ul>  
+  </nav>
+
+  <div id="wrapper">
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+        <!-- Icon Cards-->
+
+	
+          <div class="row">
+              
+	      <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="del_temp_files" href="#">
+                    <span class="float-left">Delete temporary files</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            
+	    
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="defragment_disk" href="#">
+                    <span class="float-left">Defragment disk</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+           
+	    
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="del_prefetch_files" href="#">
+                    <span class="float-left">Delete Prefetch files</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+	       <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="sleep" href="#">
+                    <span class="float-left">Sleep</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+               <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="log_off" href="#">
+                    <span class="float-left">Log off</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="turn_off" href="#">
+                    <span class="float-left">Turn Off</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+      
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="restart" href="#">
+                    <span class="float-left">Restart</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="update_windows" href="#">
+                    <span class="float-left">Update Windows</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="update_windows_antivirus" href="#">
+                    <span class="float-left">Update Windows Antivirus</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="disk_cleanup" href="#">
+                    <span class="float-left">Disk Cleanup</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+	      <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card_hover card text-white bg-primary o-hidden h-100 card_hover">
+                  <a class="card-footer text-white clearfix small z-1" id="quick_scan" href="#">
+                    <span class="float-left">Quick Scan</span>
+                    <span class="float-right">
+                      <i class="fas fa-angle-right"></i>
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+	  </div>
+        </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footerrr">
+        <div class="container my-auto">
+          <div class="copyright text-center">
+             <span>Made with <i class="icon ion-heart"></i> by Tanweer Ali.</span>
+	  </div>
+        </div>
+      </footer>
+     
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <div class="popup">
+        <img class="refresh-popup" id="refresh-popup" alt="Close" src="{% static '/images/refresh.gif' %}"/>
+  </div>
+  <div class="popup_">
+        <img class="close-popup-rm" id="close-popup-rm" alt="Close" src="{% static '/images/close.png' %}"/>
+        <div class="container">
+                <div class="card card-login mx-auto mt-5">
+                        <div class="card-header">Get Remote ID</div>
+                                <div class="card-body">
+                                        <div class="form-group">
+						<p>Teamviewer ID : {{ teamviewer_id }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                        	<p>Anydesk ID : {{ anydesk_id }}</p>
+					</div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/static/js/sb-admin.min.js"></script>
+  <script>
+    document.getElementById("get_remote").addEventListener("click",function(){
+    	console.log("hello");
+        document.querySelector(".popup_").style.display = "flex";
+    });
+    document.getElementById("close-popup-rm").addEventListener("click", function(){
+        document.querySelector(".popup_").style.display = "none";
+    });
+    console.log(window.location.host)
+    console.log(window.location.pathname)
+    var endpoint = 'wss://' + window.location.host + window.location.pathname
+    console.log(endpoint)
+    var socket = new WebSocket(endpoint)
+    socket.onopen = function open() {
+      console.log('WebSockets connection created.');
+    }
+    socket.onmessage = function(e){
+	var s = e.data.split('+');
+	if(s[1]=="browser"){
+		console.log(s[0]);
+		document.querySelector(".popup").style.display = "none";
+		alert(s[0]);
+		location.reload(true);
+	}
+    }
+
+    socket.onerror = function(e){
+    	console.log("error", e)
+    }
+    socket.onclose = function(e){
+    	console.log("close",e)
+    }
+    if (socket.readyState == WebSocket.OPEN) {
+      socket.onopen();
+    }
+    document.getElementById("del_temp_files").addEventListener("click", function() {
+      socket.send("del /q/f/s %TEMP%\* + delete_temp_files+windows+powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("sleep").addEventListener("click", function() {
+      socket.send("rundll32.exe powrprof.dll,SetSuspendState 0,1,0 + sleep + windows+cmd");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("log_off").addEventListener("click", function() {
+      socket.send("shutdown.exe -l + logoff + windows+powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("restart").addEventListener("click", function() {
+      socket.send("shutdown.exe -r + restart + windows+cmd");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("turn_off").addEventListener("click", function() {
+	socket.send("shutdown.exe -s + turn off + windows+cmd");
+        document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("defragment_disk").addEventListener("click", function() {
+      socket.send("Optimize-Volume -DriveLetter D -Defrag -Verbose;Optimize-Volume -DriveLetter C -Defrag -Verbose+ defragment disk + windows + powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("del_prefetch_files").addEventListener("click", function() {
+      socket.send("Remove-Item -Path C:\\Windows\\prefetch -Recurse -Force -ErrorAction SilentlyContinue + delete prefetch files + windows + powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("update_windows").addEventListener("click", function() {
+      socket.send("Remove-Item -Path C:\\Windows\\prefetch -Recurse -Force -ErrorAction SilentlyContinue + update_windows + windows + powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("update_windows_antivirus").addEventListener("click", function() {
+      socket.send("Remove-Item -Path C:\\Windows\\prefetch -Recurse -Force -ErrorAction SilentlyContinue + update_windows_antivirus + windows + powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("disk_cleanup").addEventListener("click", function() {
+      socket.send("cleanmgr.exe /dDrive + disk_cleanup + windows+powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+    document.getElementById("quick_scan").addEventListener("click", function() {
+      socket.send("Quick Scan + quick_scan + windows+powershell");
+      document.querySelector(".popup").style.display = "flex";
+    });
+  </script>
+</body>
+{% endblock %}

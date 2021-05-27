@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Server Monitor{% endblock %}
+
+{% block links %}
+  <!-- Custom styles for this template-->
+  <link href="/static/css/sb-admin.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<body id="page-top">
+
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+	  <a class="navbar-brand mr-1" href="{{ url }}/">Select Device/</a><a class="navbar-brand mr-1" href="{{ url }}/servers">Monitor Servers</a>
+          <ul class="navbar-nav ml-auto mr-0 mr-md-3 my-2 my-md-0">
+                <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user-circle fa-fw"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{{ url }}/logout/">Logout</a>
+				<a class="dropdown-item" id="add-servers" type="button">Add Server</a>
+				<a class="dropdown-item" id="rem-servers" type="button">Remove Server</a>
+                        </div>
+                </li>
+        </ul>
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+      <li class="nav-item">
+	      <a class="nav-link" href="{{ url }}/systems">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Monitor Systems</span></a>
+      </li>
+      <li class="nav-item">
+	      <a class="nav-link" href="{{ url }}/tablets">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Monitor Tablets</span></a>
+      </li>
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+
+      <!-- DataTables -->
+        <div class="card mb-3">
+          <div class="card-header">
+		  Linux Servers</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTableLinux" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Host Name</th>
+                    <th>CPU Utilization</th>
+                    <th>RAM USAGE</th>
+                    <th>DISK Usage</th>
+                    <th>Last Updated</th>
+                    <th>Status</th>
+		    <th>Logs</th>
+                    <th>Connect</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for v in linux %}
+                  <tr>
+                    <td>{{ v.u_name }}</td>
+                    <td>{{ v.cpu_usage }}</td>
+                    <td>{{ v.ram_usage }}</td>
+		    <td id="disk_usage{{ v.u_name }}"></td>
+                    <td>{{ v.time_stamp }}</td>
+                    <td><img src="{% static '/images/green.png' %}" id="imge{{ v.u_name }}" class="img-circle image10 pl-2" style="width:30; height:20px;"></td>
+		    <td><img src="{% static '/images/download.png' %}" id="download{{ v.u_name }}" class="img-circle image10 pl-2" style="width:30; height:20px;"></td>
+		    <td><a role="button" class="btn btn-outline-success" id="buttone{{ v.u_name }}" href="{{ url }}/servers/connect/{{ v.u_name }}">Connect</a></td>
+                  </tr>
+                  <script>
+			var disk_usagee = "{{ v.disk_usage }}".replace(/,/g, '<br>');
+                        $("#disk_usage{{ v.u_name }}").html(disk_usagee);
+                        var startDate = new Date();
+                        var last_checked_time_stamp = "{{ v.time_stamp_format }}";
+                        var dateTimeParts = last_checked_time_stamp.split(' ');
+                        var timeParts = dateTimeParts[1].split(':');
+                        var dateParts = dateTimeParts[0].split('-');
+                        var date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+                        var seconds = (startDate.getTime() - date.getTime()) / 1000;
+                        if(seconds>60){
+                                document.getElementById("imge{{ v.u_name }}").src = "{% static '/images/red.png' %}"
+                                $('#buttone{{ v.u_name }}').addClass("disabled btn-outline-secondary").removeClass("btn-outline-success"); 
+                        }
+			if("{{ v.ram_usage }}"=="Not Applied"){
+                                document.getElementById("imge{{ v.u_name }}").src = "{% static '/images/orange.png' %}";
+                                $('#buttone{{ v.u_name }}').addClass("disabled btn-outline-secondary").removeClass("btn-outline-success");
+                        }
+			$("#download{{ v.u_name }}").click(function () {
+				window.open("{{ url }}/download/{{ v.u_name }}"); 		
+    			});	
+                  </script>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header">Windows Servers</div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTableWindows" width="100%" cellspacing="0">
+                        	<thead>
+                        		<tr>
+						<th>Host Name</th>
+						<th>CPU Utilization</th>
+						<th>RAM USAGE</th>
+						<th>DISK Usage</th>
+						<th>Last Updated</th>
+						<th>Status</th>
+						<th>Connect</th>
+                        		</tr>
+                        	</thead>
+                        	<tbody>
+                        		{% for v in windows.all %}
+                        			<tr>
+							<td>{{ v.u_name }}</td>
+							<td>{{ v.cpu_usage }}</td>
+							<td>{{ v.ram_usage }}</td>
+							<td id="disk_usage{{ v.u_name }}"></td>
+							<td>{{ v.time_stamp }}</td>
+							<td><img src="{% static '/images/green.png' %}" id="imge{{ v.u_name }}" class="img-circle image10 pl-2" style="width:30; height:20px;"></td>
+							<td><a role="button" class="btn btn-outline-success" id="buttone{{ v.u_name }}" href="{{ url }}/servers/connect/{{ v.u_name }}">Connect</a></td>
+                        			</tr>
+                        			<script>
+							var disk_usagee = "{{ v.disk_usage }}".replace(/,/g, '<br>');
+							$("#disk_usage{{ v.u_name }}").html(disk_usagee);
+							var startDate = new Date();
+							var last_checked_time_stamp = "{{ v.time_stamp_format }}";
+							var dateTimeParts = last_checked_time_stamp.split(' ');
+							var timeParts = dateTimeParts[1].split(':');
+							var dateParts = dateTimeParts[0].split('-');
+							var date = new Date(dateParts[2], parseInt(dateParts[1], 10) - 1, dateParts[0], timeParts[0], timeParts[1]);
+							var seconds = (startDate.getTime() - date.getTime()) / 1000;
+							if(seconds>60){
+								document.getElementById("imge{{ v.u_name }}").src = "{% static '/images/red.png' %}"
+								$('#buttone{{ v.u_name }}').addClass("disabled btn-outline-secondary").removeClass("btn-outline-success");
+							}
+							if("{{ v.ram_usage }}"=="Not Applied"){
+								document.getElementById("imge{{ v.u_name }}").src = "{% static '/images/orange.png' %}";
+								$('#buttone{{ v.u_name }}').addClass("disabled btn-outline-secondary").removeClass("btn-outline-success");
+							}
+                        			</script>
+                        		{% endfor %}
+                        	</tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+      </div>
+
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Made with <i class="icon ion-heart"></i> by Tanweer Ali.</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+  <div class="popup">
+        <img class="close-popup-servers" id="close-popup" alt="Close" src="{% static '/images/close.png' %}"/>
+        <div class="container">
+                <div class="card card-login mx-auto mt-5">
+                        <div class="card-header">Add Server</div>
+                                <div class="card-body">
+                                        <div class="form-group">
+                                                <input class="input100" type="text" id="input_host" name="host_name">
+                                        </div>
+					 <div class="form-group">
+                                                <input class="input100" type="text" id="teamviewer_id" name="teamviewer_id" placeholder="Enter Teamviewer ID">
+                                        </div>
+					 <div class="form-group">
+                                                <input class="input100" type="text" id="anydesk_id" name="anydesk_id" placeholder="Enter Anydesk ID">
+                                        </div>
+					<div class="form-group">
+						<input class="input100" type="text" id="server_type" name="server_type" placeholder="linux / windows">
+					</div>
+                                        <button class="btn btn-primary btn-block" type="button" id="add_server">Add</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
+  </div>
+  <div class="popup-rm">
+        <img class="close-popup-rm" id="close-popup-rm" alt="Close" src="{% static '/images/close.png' %}"/>
+        <div class="container">
+                <div class="card card-login mx-auto mt-5">
+                        <div class="card-header">Remove Server</div>
+                                <div class="card-body">
+                                        <div class="form-group">
+                                                <input class="input100" type="text" id="input_host-rm" name="host_name">
+                                        </div>
+                                        <button class="btn btn-primary btn-block" type="button" id="rem_server">Remove</button>
+                                </div>
+                        </div>
+                </div>
+        </div>
+  </div>
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="/static/js/sb-admin.min.js"></script>
+   <script>
+        document.getElementById("add-servers").addEventListener("click",function(){
+                console.log("hello");
+                document.querySelector(".popup").style.display = "flex";
+        })
+        document.getElementById("close-popup").addEventListener("click", function(){
+                document.querySelector(".popup").style.display = "none";
+        })
+        document.getElementById("rem-servers").addEventListener("click",function(){
+                console.log("hello");
+                document.querySelector(".popup-rm").style.display = "flex";
+        })
+        document.getElementById("close-popup-rm").addEventListener("click", function(){
+                document.querySelector(".popup-rm").style.display = "none";
+        })
+
+   </script>
+   <script>
+        document.getElementById("input_host").placeholder="Enter Host Name";
+	document.getElementById("input_host-rm").placeholder="Enter Host Name";
+        document.getElementById("add_server").addEventListener("click",function(){ 
+		var temp = $("#input_host").val();
+		var teamviewer_id = $("#teamviewer_id").val();
+		var anydesk_id = $("#anydesk_id").val();
+		var server_type = $("#server_type").val();
+		if(temp == "" || server_type == ""){
+			alert("Host Name and OS Server field cannot be empty");
+			return;
+		}
+		$('#add_server').addClass("disabled btn-outline-secondary")
+                console.log(temp);
+                $.post("{{ util.all.url }}/addserver", {'data':temp,'teamviewer_id':teamviewer_id,'anydesk_id':anydesk_id, 'server_type':server_type}, function(data,status){
+                	alert(data.message);
+                        location.reload(true);
+                 })
+        })
+        document.getElementById("rem_server").addEventListener("click",function(){
+                var temp = $("#input_host-rm").val();
+                if(temp == ""){
+                        alert("Fill Host Name");
+                        return;
+                }
+                $('#rem_server').addClass("disabled btn-outline-secondary")
+                console.log(temp);
+                $.post("{{ util.all.url }}/remserver", {'data':temp}, function(data,status){
+                        alert(data.message);
+                        location.reload(true);
+                 })
+        })
+
+   </script>
+
+</body>
+{% endblock %}
+

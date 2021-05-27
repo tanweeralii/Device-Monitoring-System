@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>  
+  <title>{% block title %}{% endblock %}</title>
+
+  <style>
+    .card_hover{ 
+      transition:0.3s;
+    }
+    .card_hover:hover{
+      transform:scale(1.03);
+    }
+    .disabled{
+    	pointer-events: none;
+    }
+    .form-groupp{
+    	margin-bottom:1rem;
+	margin-left:4rem;
+    }
+    footer.sticky-footerr {
+      display: flex;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: calc(100%);
+      height: 80px;
+      opacity: 1;
+    }
+
+    footer.sticky-footerr .copyright {
+      line-height: 1;
+      font-size: 0.8 rem;
+      color: white;
+    }
+
+    @media (min-width: 768px) {
+      footer.sticky-footerr {
+        width: calc(100%);
+      }
+    }
+    footer.sticky-footerrr {
+      display: flex;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: calc(100%);
+      height: 80px;
+      opacity: 1;
+      background-color:#e9ecef;
+    }
+
+    footer.sticky-footerrr .copyright {
+      line-height: 1;
+      font-size: 0.8 rem;
+    }
+
+    @media (min-width: 768px) {
+      footer.sticky-footerrr {
+        width: calc(100%);
+      }
+    }
+    
+    .popup{
+    	background: rgba(0,0,0,0.6);
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	display:none;
+	justify-content: center;
+	align-items:center;
+	text-align:center;
+    }
+    .popup_{
+        background: rgba(0,0,0,0.6);
+        width:100%;
+        height:100%;
+        position:absolute;
+        top:0;
+        display:none;
+        justify-content: center;
+        align-items:center;
+        text-align:center;
+    }
+    .popup-rm{
+        background: rgba(0,0,0,0.6);
+        width:100%;
+        height:100%;
+        position:absolute;
+        top:0;
+        display:none;
+        justify-content: center;
+        align-items:center;
+        text-align:center;
+    }
+    .close-popup{
+    	position:absolute;
+	top:30.5%;
+	right:34%;
+	background:#fff;
+	height:20px;
+	width:20px;
+	box-shadow: 6px 6px 29px -4px rgba(0,0,0,0.75);
+	cursor:pointer;
+    }
+
+    .close-popup-rm{
+        position:absolute;
+        top:37%;
+        right:34%;
+        background:#fff;
+        height:20px;
+        width:20px;
+        box-shadow: 6px 6px 29px -4px rgba(0,0,0,0.75);
+        cursor:pointer;
+    }
+
+    .close-popup-servers{
+        position:absolute;
+        top:25.5%;
+        right:34%;
+        background:#fff;
+        height:20px;
+        width:20px;
+        box-shadow: 6px 6px 29px -4px rgba(0,0,0,0.75);
+        cursor:pointer;
+    }
+
+    .refresh-popup{
+    	position:absolute;
+	top:40%;
+	right:45%;
+	height:100px;
+	width:100px;
+    }
+    .p-login{
+    	margin-left:16%;
+	margin-top:5%;
+	color:rgba(0,0,0,.6);
+    }
+
+    .header-link{
+    	font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:0.8rem;
+    }
+  </style>
+  <!-- Custom fonts for this template-->
+  <link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	
+  {% block links %}
+  {% endblock %}
+
+</head>
+
+{% block body %}
+{% endblock %}
+
+</html>

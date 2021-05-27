@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}AMS Devices{% endblock %}
+
+{% block links %}
+<!-- Custom fonts for this template-->
+<link href="/static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="/static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="/static/vendor/daterangepicker/daterangepicker.css">
+<link rel="stylesheet" type="text/css" href="/static/css/util.css">
+<link rel="stylesheet" type="text/css" href="/static/css/main.css">
+<!-- Custom styles for this template-->
+<link href="/static/css/sb-admin.css" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<body class="bg-dark">
+  <div class="limiter">
+  	<div class="container-login100" style="background-image: url('{% static '/images/asset-mgmt-post-1-image.jpg' %}');">
+  		<div class="container">
+    			<div class="card card-login mx-auto mt-5">
+      				<div class="card-header">Select Device</div>
+      					<div class="card-body">
+	      					<a class="btn btn-primary btn-block" href="{{ util.all.url }}/systems">Systems</a>
+	      					<a class="btn btn-primary btn-block" href="{{ util.all.url }}/servers">Servers</a>
+	      					<a class="btn btn-primary btn-block" href="{{ util.all.url }}/tablets">Tablets</a>
+      					</div>
+    				</div>
+  			</div>
+
+  			<footer class="sticky-footerr">
+    				<div class="container my-auto">
+      					<div class="copyright text-center my-auto">
+        					<span>Made with <i class="icon ion-heart"></i> by Tanweer Ali.</span>
+      					</div>
+    				</div>
+  			</footer>
+  		</div>
+  </div>
+  <div id="dropDownSelect1"></div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+{% endblock %}
